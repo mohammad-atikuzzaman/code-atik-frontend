@@ -28,7 +28,7 @@ const NotFound = () => {
           <Link to="/" className="flex items-center space-x-2">
             <Sparkles className="w-8 h-8 text-purple-400" />
             <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              CodeCraft AI
+              CodeAtik Agent
             </span>
           </Link>
           <Link 

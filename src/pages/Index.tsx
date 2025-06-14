@@ -61,7 +61,7 @@ const Index = () => {
           <div className="flex items-center space-x-2">
             <Sparkles className="w-8 h-8 text-purple-400" />
             <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              CodeCraft AI
+              CodeAtik Agent
             </span>
           </div>
           <Link 
@@ -243,7 +243,7 @@ const Index = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <Sparkles className="w-8 h-8 text-purple-400" />
                 <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  CodeCraft AI
+                  CodeAtik Agent
                 </span>
               </div>
               <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
@@ -315,7 +315,7 @@ const Index = () => {
           {/* Bottom Bar */}
           <div className="border-t border-gray-800/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 CodeCraft AI. All rights reserved.
+              © 2024 CodeAtik Agent. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-purple-400 text-sm transition-colors duration-300">
