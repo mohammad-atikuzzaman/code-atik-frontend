@@ -47,7 +47,7 @@ const App = () => {
 
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = `http://localhost:3000/api/download/${siteData?.id}`;
+    link.href = `https://codeatik-agent-server.onrender.com/api/download/${siteData?.id}`;
     link.setAttribute("download", "generated-site.zip");
     document.body.appendChild(link);
     link.click();
