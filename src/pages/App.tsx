@@ -9,6 +9,9 @@ import {
   Code,
   Eye,
   Loader2,
+  Triangle,
+  Square,
+  Pentagon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -146,10 +149,17 @@ Examples:
                   <span>Live Preview</span>
                 </h2>
 
-                <div className="bg-gray-200 rounded-lg overflow-hidden flex-1">
+                <div className="bg-gradient-to-tr from-indigo-500 to-purple-800 rounded-lg overflow-hidden flex-1">
                   {isGenerating ? (
-                    <div className="h-full flex justify-center items-center text-black font-semibold text-xl">
-                      Generating your website...
+                    <div className="h-full flex flex-col justify-center items-center text-white text-xl font-semibold gap-2">
+                      <div className="flex flex-col items-center gap-2">
+                        <Triangle className="animate-pulse text-violet-300" />
+                        <div className="flex gap-2">
+                          <Square className="animate-pulse text-violet-100" />
+                          <Pentagon className="animate-pulse text-violet-400" />
+                        </div>
+                      </div>
+                      <div>Generating Website ...</div>
                     </div>
                   ) : siteData?.previewUrl ? (
                     <iframe
@@ -158,8 +168,14 @@ Examples:
                       title="Website Preview"
                     />
                   ) : (
-                    <div className="h-full flex justify-center items-center text-black text-xl font-semibold">
-                      Please generate a site to preview it here.
+                    <div className="h-full flex flex-col justify-center items-center text-white text-xl font-semibold">
+                      <div className="flex flex-col items-center gap-2">
+                        <Triangle />
+                        <div className="flex gap-2">
+                          <Square /> <Pentagon />
+                        </div>
+                      </div>
+                      <div>Please generate a site to preview it here.</div>
                     </div>
                   )}
                 </div>
