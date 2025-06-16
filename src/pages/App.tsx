@@ -36,7 +36,7 @@ const App = () => {
 
     setIsGenerating(true);
     const res = await axios.post(
-      "https://codeatik-agent-server.onrender.com/api/generate",
+      `${import.meta.env.VITE_API_URL }/api/generate`,
       {
         prompt,
       }
@@ -53,7 +53,7 @@ const App = () => {
 
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = `https://codeatik-agent-server.onrender.com/api/download/${siteData?.id}`;
+    link.href = `${import.meta.env.VITE_API_URL}/api/download/${siteData?.id}`;
     link.setAttribute("download", "generated-site.zip");
     document.body.appendChild(link);
     link.click();
@@ -153,10 +153,10 @@ Examples:
                   {isGenerating ? (
                     <div className="h-full flex flex-col justify-center items-center text-white text-xl font-semibold gap-2">
                       <div className="flex flex-col items-center gap-2">
-                        <Triangle className="animate-pulse text-violet-300" />
+                        <Triangle className="animate-spin text-violet-300" />
                         <div className="flex gap-2">
-                          <Square className="animate-pulse text-violet-100" />
-                          <Pentagon className="animate-pulse text-violet-400" />
+                          <Square className="animate-spin text-violet-100" />
+                          <Pentagon className="animate-spin text-violet-400" />
                         </div>
                       </div>
                       <div>Generating Website ...</div>
@@ -169,7 +169,7 @@ Examples:
                     />
                   ) : (
                     <div className="h-full flex flex-col justify-center items-center text-white text-xl font-semibold">
-                      <div className="flex flex-col items-center gap-2">
+                      <div className="flex flex-col items-center gap-2  ">
                         <Triangle />
                         <div className="flex gap-2">
                           <Square /> <Pentagon />
