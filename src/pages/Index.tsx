@@ -129,9 +129,9 @@ const Index = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
 
-              <button className="px-8 py-4 rounded-full border-2 border-gray-600 hover:border-purple-400 transition-all duration-300 hover:bg-purple-900/20 text-lg font-semibold">
+              <a href="#watch-demo" className="px-8 py-4 rounded-full border-2 border-gray-600 hover:border-purple-400 transition-all duration-300 hover:bg-purple-900/20 text-lg font-semibold">
                 Watch Demo
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -280,8 +280,8 @@ const Index = () => {
           </div>
         </div>
         {/* Watch Demo section */}
-        
-        <div className="relative z-10 max-w-4xl mx-auto px-6 pb-20">
+
+        <div id="watch-demo" className="relative z-10 max-w-4xl mx-auto px-6 pb-20">
           <div
             className={`rounded-3xl overflow-hidden border border-purple-500/20 bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm shadow-2xl transition-all duration-1000 ${
               isLoaded
