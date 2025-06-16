@@ -341,7 +341,7 @@ const Index = () => {
             </h3>
             <p className="text-gray-300 mb-8 text-lg">
               Join thousands of developers who are already building with
-              CodeCraft AI
+              CodeAtik Agent
             </p>
             <Link
               to="/app"
