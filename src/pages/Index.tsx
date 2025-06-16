@@ -129,7 +129,10 @@ const Index = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
 
-              <a href="#watch-demo" className="px-8 py-4 rounded-full border-2 border-gray-600 hover:border-purple-400 transition-all duration-300 hover:bg-purple-900/20 text-lg font-semibold">
+              <a
+                href="#watch-demo"
+                className="px-8 py-4 rounded-full border-2 border-gray-600 hover:border-purple-400 transition-all duration-300 hover:bg-purple-900/20 text-lg font-semibold"
+              >
                 Watch Demo
               </a>
             </div>
@@ -281,7 +284,10 @@ const Index = () => {
         </div>
         {/* Watch Demo section */}
 
-        <div id="watch-demo" className="relative z-10 max-w-4xl mx-auto px-6 pb-20">
+        <div
+          id="watch-demo"
+          className="relative z-10 max-w-4xl mx-auto px-6 pb-20"
+        >
           <div
             className={`rounded-3xl overflow-hidden border border-purple-500/20 bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm shadow-2xl transition-all duration-1000 ${
               isLoaded
@@ -290,32 +296,23 @@ const Index = () => {
             }`}
           >
             <div className="relative pt-[56.25%]">
-              {" "}
               <video
                 autoPlay
                 muted
                 loop
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover"
-                poster="/poster.png" 
+                poster="/poster.png"
               >
-                <source
-                  src="/demo.mp4"
-                  type="video/mp4"
-                />
-                <source
-                  src="/demo.mp4"
-                  type="video/webm"
-                />
+                <source src="/demo.mp4" type="video/mp4" />
+                <source src="/demo.mp4" type="video/webm" />
                 Your browser does not support the video tag.
               </video>
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/20 to-transparent" />
             </div>
 
             {/* Optional caption */}
             <div className="p-8 text-center">
-              <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">
                 See CodeAtik Agent in Action
               </h3>
               <p className="text-gray-300 max-w-2xl mx-auto">
