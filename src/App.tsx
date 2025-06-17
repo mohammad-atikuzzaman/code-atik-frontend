@@ -9,7 +9,7 @@ import NotFound from "./pages/others/NotFound";
 import OAuthSuccess from "./pages/auth/OAuthSuccess";
 import Unauthorized from "./pages/others/Unauthorized";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AdminPanel from "./pages/AdminPanel";
+import AdminPanel from "./pages/admin-panel/AdminPanel";
 import UserDashboard from "./layoutes/UserDashboard";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
