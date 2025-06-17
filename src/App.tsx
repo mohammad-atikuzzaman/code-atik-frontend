@@ -19,6 +19,7 @@ import Projects from "./pages/dashboard/Projects";
 import AdminDashboard from "./layoutes/AdminDashboard";
 import Users from "./pages/admin-panel/Users";
 import AdminPanel from "./pages/admin-panel/AdminPanel";
+import Sites from "./pages/admin-panel/Sites";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +67,7 @@ const AppComponent = () => (
           >
             <Route index element={<AdminPanel />} />
             <Route path="users" element={<Users />} />
+            <Route path="sites" element={<Sites />} />
           </Route>
           {/* others routes */}
           <Route path="/unauthorized" element={<Unauthorized />} />
