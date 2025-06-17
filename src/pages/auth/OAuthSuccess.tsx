@@ -1,4 +1,5 @@
 import { setCredentials } from "@/features/auth/authSlice";
+import { useToast } from "@/hooks/use-toast";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -7,6 +8,7 @@ const OAuthSuccess = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     const token = searchParams.get("token");
@@ -15,7 +17,11 @@ const OAuthSuccess = () => {
       dispatch(
         setCredentials({ token, email: payload.email, role: payload.role })
       );
-      navigate("/dashboard");
+      toast({
+        title: "Login Successful!",
+        description: "User Is Logged in successfully.",
+      });
+      navigate("/app");
     }
   }, []);
 

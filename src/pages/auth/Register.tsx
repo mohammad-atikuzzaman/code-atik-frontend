@@ -1,21 +1,23 @@
+import { registerUser } from "@/features/auth/authAPI";
+import { setCredentials } from "@/features/auth/authSlice";
+import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { loginUser } from "../features/auth/authAPI";
-import { setCredentials } from "../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast()
 
-  const handleChange = (e: any) =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const { data } = await loginUser(form);
+      const { data } = await registerUser(form);
       dispatch(
         setCredentials({
           token: data.token,
@@ -23,19 +25,19 @@ const Login = () => {
           role: data.user.role,
         })
       );
+          toast({
+      title: "Register Successful!",
+      description: "User Registration Is Successful",
+    });
       navigate("/");
     } catch (err: any) {
-      alert(err.response?.data?.message || "Login failed");
+      alert(err.response?.data?.message || "Registration failed");
     }
-  };
-
-  const googleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`;
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -51,14 +53,10 @@ const Login = () => {
           onChange={handleChange}
           placeholder="Password"
         />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
-      <button onClick={googleLogin}>Continue with Google</button>
-      <p>
-        Don't have account? <a href="/register">Register</a>
-      </p>
     </div>
   );
 };
 
-export default Login;
+export default Register;

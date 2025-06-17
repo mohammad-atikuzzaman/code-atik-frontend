@@ -1,9 +1,9 @@
+import { RootState } from "@/app/store";
+import { logout } from "@/features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../app/store";
-import { logout } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const Profile = () => {
   const { email, role } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,4 +29,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Profile;

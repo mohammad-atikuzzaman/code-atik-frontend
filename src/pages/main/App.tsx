@@ -36,7 +36,7 @@ const App = () => {
 
     setIsGenerating(true);
     const res = await axios.post(
-      `${import.meta.env.VITE_API_URL }/api/generate`,
+      `${import.meta.env.VITE_API_URL}/api/generate`,
       {
         prompt,
       }
@@ -137,6 +137,12 @@ Examples:
                   </>
                 )}
               </Button>
+              <Link
+                to="/dashboard"
+                className="text-center mt-2 text-sm underline text-gray-300 hover:text-pink-400 transition"
+              >
+                See your Generated Sites On Dashboard
+              </Link>
             </div>
           </section>
 
