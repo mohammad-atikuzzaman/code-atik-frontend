@@ -14,6 +14,8 @@ import UserDashboard from "./layoutes/UserDashboard";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import Profile from "./components/shared/Profile";
+import TermsOfService from "./pages/others/TermsOfService";
+import PrivacyPolicy from "./pages/others/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +28,14 @@ const AppComponent = () => (
         <Routes>
           {/* the main interface of website */}
           <Route path="/" element={<Index />} />
-          <Route path="/app" element={<App />} />
+          <Route
+            path="/app"
+            element={
+              <ProtectedRoute>
+                <App />
+              </ProtectedRoute>
+            }
+          />
           {/* auth interface of website */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
@@ -62,6 +71,8 @@ const AppComponent = () => (
           </Route>
           {/* others routes */}
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
