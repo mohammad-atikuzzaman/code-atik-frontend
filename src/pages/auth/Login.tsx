@@ -70,6 +70,7 @@ const Login = () => {
               Welcome Back
             </h1>
             <p className="text-gray-400">Sign in to your account to continue</p>
+            <a href="/" className="underline text-sm text-purple-300">Back to home</a>
           </div>
 
           {/* Login Form */}

@@ -70,6 +70,7 @@ const Register = () => {
               Create Account
             </h1>
             <p className="text-gray-400">Join us to get started</p>
+            <a href="/" className="text-purple-300 text-sm underline">Back to home</a>
           </div>
 
           {/* Registration Form */}
