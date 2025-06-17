@@ -53,7 +53,7 @@ const Users = () => {
     try {
       setLoading(true);
       const res = await axios.put(
-        `http://localhost:3000/api/users/change-role`,
+        `${import.meta.env.VITE_API_URL}/api/users/change-role`,
         { email: selectedUser.email, role: newRole },
         { headers: { Authorization: `Bearer ${token}` } }
       );
