@@ -16,6 +16,7 @@ import Login from "./pages/auth/Login";
 import Profile from "./components/shared/Profile";
 import TermsOfService from "./pages/others/TermsOfService";
 import PrivacyPolicy from "./pages/others/PrivacyPolicy";
+import Projects from "./pages/dashboard/Projects";
 
 const queryClient = new QueryClient();
 
@@ -50,12 +51,7 @@ const AppComponent = () => (
             }
           >
             <Route index element={<div>user dashboard</div>} />
-            <Route
-              path="generated-sites"
-              element={
-                <div>here will render all of the users generated sites</div>
-              }
-            />
+            <Route path="projects" element={<Projects />} />
             <Route path="profile" element={<Profile />} />
           </Route>
           {/* here are admin interface with route protection */}
