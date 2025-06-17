@@ -41,7 +41,7 @@ const Users = () => {
     }
   }, [token]);
 
-  const handleRoleChange = (user: User) => {
+  const handleRoleChange = (user: { email: string; role: string }) => {
     setSelectedUser({
       email: user.email,
       currentRole: user.role,
@@ -81,7 +81,7 @@ const Users = () => {
 
   if (loading && users.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-pink-800 p-4 sm:p-6 md:p-8">
+      <div className="min-h-screen bg-gradient-to-br ">
         <div className="max-w-7xl mx-auto bg-slate-800 bg-opacity-70 rounded-xl p-4 sm:p-6 backdrop-blur-sm">
           <div className="animate-pulse text-center text-purple-200 text-sm sm:text-base">
             Loading users...
@@ -93,7 +93,7 @@ const Users = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-pink-800 p-4 sm:p-6 md:p-8">
+      <div className="min-h-screen bg-gradient-to-br ">
         <div className="max-w-7xl mx-auto bg-slate-800 bg-opacity-70 rounded-xl p-4 sm:p-6 backdrop-blur-sm text-pink-200 text-sm sm:text-base">
           {error}
         </div>
