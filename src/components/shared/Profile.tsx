@@ -32,7 +32,7 @@ const ProfileCard = () => {
   }
 
   return (
-    <div className="w-full max-w-[95vw] sm:max-w-md mx-auto bg-white rounded-lg shadow-sm sm:shadow-md overflow-hidden">
+    <div className="w-full max-w-[95vw] sm:max-w-md mx-auto bg-slate-800 rounded-lg shadow-sm sm:shadow-md overflow-hidden">
       {/* Card Header - Responsive with different padding and font sizes */}
       <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 sm:p-6 text-white">
         <div className="flex items-center space-x-3 sm:space-x-4">
@@ -61,8 +61,8 @@ const ProfileCard = () => {
               <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs sm:text-sm text-gray-500">Email Address</p>
-              <p className="text-sm sm:text-base font-medium truncate">{email}</p>
+              <p className="text-xs sm:text-sm text-gray-200">Email Address</p>
+              <p className="text-sm sm:text-base text-purple-400 font-medium truncate">{email}</p>
             </div>
           </div>
 
@@ -71,8 +71,8 @@ const ProfileCard = () => {
               <Key className="h-4 w-4 sm:h-5 sm:w-5 text-pink-600" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-gray-500">Account Role</p>
-              <p className="text-sm sm:text-base font-medium capitalize">{role}</p>
+              <p className="text-xs sm:text-sm text-gray-200">Account Role</p>
+              <p className="text-sm sm:text-base font-medium text-pink-600 capitalize">{role}</p>
             </div>
           </div>
 
@@ -81,8 +81,8 @@ const ProfileCard = () => {
               <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-gray-500">Member Since</p>
-              <p className="text-sm sm:text-base font-medium">{formattedDate}</p>
+              <p className="text-xs sm:text-sm text-gray-200">Member Since</p>
+              <p className="text-sm sm:text-base text-blue-500 font-medium">{formattedDate}</p>
             </div>
           </div>
 

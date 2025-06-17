@@ -60,7 +60,7 @@ const UserDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex">
+    <div className="min-h-screen bg-gradient-to-b r from-slate-900  to-slate-800  text-slate-900 flex">
       {/* Mobile menu button */}
       <button
         type="button"

@@ -16,6 +16,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 const App = () => {
   const [prompt, setPrompt] = useState("");
@@ -23,6 +25,8 @@ const App = () => {
   const [showPreview, setShowPreview] = useState(true);
   const [siteData, setSiteData] = useState({ id: null, previewUrl: null });
   const { toast } = useToast();
+
+  const { token } = useSelector((state: RootState) => state.auth);
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -39,7 +43,8 @@ const App = () => {
       `${import.meta.env.VITE_API_URL}/api/generate`,
       {
         prompt,
-      }
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
     );
 
     setSiteData(res.data);
