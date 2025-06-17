@@ -9,7 +9,6 @@ import NotFound from "./pages/others/NotFound";
 import OAuthSuccess from "./pages/auth/OAuthSuccess";
 import Unauthorized from "./pages/others/Unauthorized";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AdminPanel from "./pages/admin-panel/AdminPanel";
 import UserDashboard from "./layoutes/UserDashboard";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
@@ -17,6 +16,9 @@ import Profile from "./components/shared/Profile";
 import TermsOfService from "./pages/others/TermsOfService";
 import PrivacyPolicy from "./pages/others/PrivacyPolicy";
 import Projects from "./pages/dashboard/Projects";
+import AdminDashboard from "./layoutes/AdminDashboard";
+import Users from "./pages/admin-panel/Users";
+import AdminPanel from "./pages/admin-panel/AdminPanel";
 
 const queryClient = new QueryClient();
 
@@ -58,11 +60,12 @@ const AppComponent = () => (
             path="/admin-panel"
             element={
               <ProtectedRoute role="admin">
-                <AdminPanel />
+                <AdminDashboard />
               </ProtectedRoute>
             }
           >
             <Route index element={<AdminPanel />} />
+            <Route path="users" element={<Users />} />
           </Route>
           {/* others routes */}
           <Route path="/unauthorized" element={<Unauthorized />} />
