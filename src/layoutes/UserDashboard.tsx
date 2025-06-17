@@ -2,7 +2,6 @@ import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Home,
   LayoutDashboard,
-  FileText,
   User,
   LogOut,
   ChevronRight,
@@ -32,12 +31,6 @@ const UserDashboard = () => {
       href: "/dashboard",
       icon: LayoutDashboard,
       current: location.pathname === "/dashboard",
-    },
-    {
-      name: "Projects",
-      href: "/dashboard/projects",
-      icon: FileText,
-      current: location.pathname.includes("/dashboard/projects"),
     },
     {
       name: "Profile",

@@ -50,8 +50,7 @@ const AppComponent = () => (
               </ProtectedRoute>
             }
           >
-            <Route index element={<div>user dashboard</div>} />
-            <Route path="projects" element={<Projects />} />
+            <Route index element={<Projects />} />
             <Route path="profile" element={<Profile />} />
           </Route>
           {/* here are admin interface with route protection */}
