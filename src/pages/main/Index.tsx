@@ -140,7 +140,7 @@ const Index = () => {
         </div>
 
         {/* Features Section */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20">
+        <div id="features" className="relative z-10 max-w-7xl mx-auto px-6 pb-20">
           <div
             className={`transition-all duration-1000 delay-500 ${
               isLoaded
@@ -177,7 +177,7 @@ const Index = () => {
         </div>
 
         {/* Modes Section */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20">
+        <div id="modes" className="relative z-10 max-w-7xl mx-auto px-6 pb-20">
           <div
             className={`transition-all duration-1000 delay-700 ${
               isLoaded
@@ -231,7 +231,7 @@ const Index = () => {
         </div>
 
         {/* Developer Section */}
-        <div className="relative z-10 max-w-6xl mx-auto px-6 pb-20">
+        <div id="developer" className="relative z-10 max-w-6xl mx-auto px-6 pb-20">
           <div
             className={`transition-all duration-1000 delay-1000 ${
               isLoaded
@@ -282,8 +282,8 @@ const Index = () => {
             </div>
           </div>
         </div>
-        {/* Watch Demo section */}
 
+        {/* Watch Demo section */}
         <div
           id="watch-demo"
           className="relative z-10 max-w-4xl mx-auto px-6 pb-20"
@@ -420,15 +420,15 @@ const Index = () => {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="#"
+                    href="/admin-panel"
                     className="text-gray-400 hover:text-purple-400 transition-colors duration-300"
                   >
-                    Documentation
+                    Admin
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#watch-demo"
                     className="text-gray-400 hover:text-purple-400 transition-colors duration-300"
                   >
                     Tutorials
@@ -436,7 +436,7 @@ const Index = () => {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/faq"
                     className="text-gray-400 hover:text-purple-400 transition-colors duration-300"
                   >
                     FAQ
@@ -461,19 +461,19 @@ const Index = () => {
             </p>
             <div className="flex space-x-6">
               <a
-                href="#"
+                href="/privacy"
                 className="text-gray-400 hover:text-purple-400 text-sm transition-colors duration-300"
               >
                 Privacy Policy
               </a>
               <a
-                href="#"
+                href="/terms"
                 className="text-gray-400 hover:text-purple-400 text-sm transition-colors duration-300"
               >
                 Terms of Service
               </a>
               <a
-                href="#"
+                href="/cookie-policy"
                 className="text-gray-400 hover:text-purple-400 text-sm transition-colors duration-300"
               >
                 Cookie Policy

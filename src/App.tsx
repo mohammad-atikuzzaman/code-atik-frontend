@@ -20,6 +20,8 @@ import AdminDashboard from "./layoutes/AdminDashboard";
 import Users from "./pages/admin-panel/Users";
 import AdminPanel from "./pages/admin-panel/AdminPanel";
 import Sites from "./pages/admin-panel/Sites";
+import CookiePolicy from "./pages/others/CookiePlicy";
+import FAQ from "./pages/others/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -73,6 +75,8 @@ const AppComponent = () => (
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
