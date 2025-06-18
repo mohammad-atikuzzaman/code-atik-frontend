@@ -117,7 +117,7 @@ const Users = () => {
         <div className="bg-slate-800 bg-opacity-70 rounded-xl overflow-hidden backdrop-blur-sm shadow-2xl">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-purple-900">
-              <thead className="bg-gradient-to-r from-pink-950 to-purple-900 bg-opacity-80">
+              <thead className="bg-gradient-to-r from-purple-400 to-purple-900">
                 <tr>
                   <th
                     scope="col"
@@ -156,8 +156,8 @@ const Users = () => {
                         onClick={() => handleRoleChange(user)}
                         className={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-md font-medium transition-all text-xs sm:text-sm ${
                           user.role === "admin"
-                            ? "bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
-                            : "bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
+                            ? "bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-700 text-white"
+                            : "bg-gradient-to-r from-purple-400 to-blue-400 hover:from-purple-500 hover:to-blue-600 text-white"
                         }`}
                         disabled={loading}
                       >

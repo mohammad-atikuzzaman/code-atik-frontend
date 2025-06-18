@@ -32,7 +32,7 @@ const ContactSection = () => {
         variant: "destructive",
       });
     }
-    const res = await axios.post(`http://localhost:3000/send-email`, mail);
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/send-email`, mail);
     if (!res) {
       return toast({
         title: "Error Found",
