@@ -448,7 +448,7 @@ const Index = () => {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#contacts"
                     className="text-gray-400 hover:text-purple-400 transition-colors duration-300"
                   >
                     Contact
