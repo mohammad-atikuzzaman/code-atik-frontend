@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   Mail,
   Phone,
@@ -9,17 +10,42 @@ import {
   Github,
   Globe,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
-  const handleMailSend = (e: any) => {
-    e.preventDefault()
+  const { toast } = useToast();
+
+  const handleMailSend = async (e: any) => {
+    e.preventDefault();
     const form = e.target;
-    const name = form.name.value
-    const email = form.email.value
-    const subject = form.subject.value
-    const message = form.message.value
-    console.log(name, email, subject, message);
+    const name = form.name.value;
+    const email = form.email.value;
+    const subject = form.subject.value;
+    const message = form.message.value;
+
+    const mail = { name, email, subject, message };
+
+    if (!mail || !name || !email || !subject || !message) {
+      return toast({
+        title: "Empty Input!",
+        description: "Fill all the input field",
+        variant: "destructive",
+      });
+    }
+    const res = await axios.post(`http://localhost:3000/send-email`, mail);
+    if (!res) {
+      return toast({
+        title: "Error Found",
+        description: "Something wrong, Email not sent",
+        variant: "destructive",
+      });
+    }
+    toast({
+      title: "Success",
+      description: `${res.data.message}`,
+      variant: "default",
+    });
+    form.reset();
   };
   return (
     <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
