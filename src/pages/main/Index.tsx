@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, Globe, Heart } from "lucide-react";
 import ContactSection from "@/components/main/ContactSection";
 import IndexNav from "@/components/main/IndexNav";
 import HeroSection from "@/components/main/HeroSection";
