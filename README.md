@@ -1,73 +1,86 @@
-# Welcome to your Lovable project
+# CodeAtik Agent
 
-## Project info
+**CodeAtik Agent** is an AI-powered web app that allows users to generate fully functional websites using **HTML**, **CSS**, **JavaScript**, and **Tailwind CSS**. It features role-based authentication, site preview, and downloadable ZIP packages for generated code. Admins can manage users and generated content efficiently.
 
-**URL**: https://lovable.dev/projects/d7438643-e146-42f6-be2e-d181ad6cb6cd
+🔗 **Live Site**: [https://codeatikagent.netlify.app](https://codeatikagent.netlify.app)
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Features
 
-**Use Lovable**
+- 🧠 AI-powered website generation
+- 🔐 Role-based authentication system
+- 👤 User Dashboard to preview and download generated sites
+- ⬇️ ZIP download functionality for generated sites
+- 🛠️ Admin Dashboard:
+  - Promote/demote users to/from admin
+  - View all users and generated sites
+- 📈 Site generation statistics using Recharts
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d7438643-e146-42f6-be2e-d181ad6cb6cd) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+### Frontend:
+- React JS
+- Redux
+- React Router DOM
+- Tailwind CSS
+- Recharts
+- Other essential npm packages
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Backend:
+- Node.js
+- Express.js
+- Passport.js
+- JWT
+- Nodemailer
+- adm-zip
+- MongoDB
+- Deepseek AI Model
+- Other useful packages
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+# For run the project
+You need to clone the projects
+## Backend repository
+https://github.com/mohammad-atikuzzaman/codeatik-agent-server
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## Frontend repository
+https://github.com/mohammad-atikuzzaman/code-atik-frontend
+### using
+```
+git clone github-repository-link
+```
+then run the command 
+```
+npm install
 ```
 
-**Edit a file directly in GitHub**
+## 🔧 Environment Variables need to run the project
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Frontend `.env.local`
+```env
+VITE_API_URL=your-backend-url
 
-**Use GitHub Codespaces**
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Backend `.env`
+```
+PORT=your-port
 
-## What technologies are used for this project?
+OPENROUTER_API_KEY=your-api-key
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+JWT_SECRET=your-jwt-secret
 
-This project is built with:
+MONGO_URI=your-mongodb-uri
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+API_URL=your-api-url
+GOOGLE_CALLBACK_URL=your-google-callback-url
+CLIENT_URL=your-frontend-url
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/d7438643-e146-42f6-be2e-d181ad6cb6cd) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+EMAIL_USER=your-email-address
+EMAIL_PASS=your-email-password
+```
