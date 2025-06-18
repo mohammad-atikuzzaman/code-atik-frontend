@@ -46,17 +46,17 @@ const AdminPanel = () => {
   const barChartData = [
     {
       name: "Users",
-      value: stats.totalUsers,
+      value: stats?.totalUsers,
     },
     {
       name: "Generated Sites",
-      value: stats.totalGeneratedSites,
+      value: stats?.totalGeneratedSites,
     },
   ];
 
   const pieChartData = [
-    { name: "Users", value: stats.totalUsers },
-    { name: "Generated Sites", value: stats.totalGeneratedSites },
+    { name: "Users", value: stats?.totalUsers },
+    { name: "Generated Sites", value: stats?.totalGeneratedSites },
   ];
 
   const COLORS = ["#6b46c1", "#d53f8c"]; // Purple and Pink
@@ -91,7 +91,7 @@ const AdminPanel = () => {
               Total Users
             </h3>
             <p className="text-4xl font-bold text-purple-400">
-              {stats.totalUsers}
+              {stats?.totalUsers}
             </p>
           </div>
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-pink-500/20">
@@ -99,7 +99,7 @@ const AdminPanel = () => {
               Generated Sites
             </h3>
             <p className="text-4xl font-bold text-pink-400">
-              {stats.totalGeneratedSites}
+              {stats?.totalGeneratedSites}
             </p>
           </div>
         </div>
