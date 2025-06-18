@@ -16,6 +16,7 @@ import {
   Heart,
   Facebook,
 } from "lucide-react";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -349,6 +350,9 @@ const Index = () => {
             </Link>
           </div>
         </div>
+
+        {/* contacts section */}
+        <ContactSection/>
       </main>
 
       {/* Footer */}
