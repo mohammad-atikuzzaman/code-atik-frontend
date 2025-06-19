@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import { getProjects } from "./projectsApi";
 
 // Define Site type
-export interface Site {
+export interface Projects {
   _id: string;
   folderId: string;
   name?: string;
@@ -11,34 +11,23 @@ export interface Site {
 
 // State type
 interface ProjectsState {
-  sites: Site[];
+  projects: Projects[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: ProjectsState = {
-  sites: [],
+  projects: [],
   loading: false,
   error: null,
 };
 
 // Async thunk to fetch user sites
-export const fetchMySites = createAsyncThunk<Site[], string>(
+export const fetchMySites = createAsyncThunk<Projects[], string>(
   "projects/fetchMySites",
-  async (token, { rejectWithValue }) => {
-    try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/my-sites`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return res.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.message || error.message);
-    }
+  async (token) => {
+    const projects = getProjects(token);
+    return projects;
   }
 );
 
@@ -54,9 +43,9 @@ const projectsSlice = createSlice({
       })
       .addCase(
         fetchMySites.fulfilled,
-        (state, action: PayloadAction<Site[]>) => {
+        (state, action: PayloadAction<Projects[]>) => {
           state.loading = false;
-          state.sites = action.payload;
+          state.projects = action.payload;
         }
       )
       .addCase(fetchMySites.rejected, (state, action) => {

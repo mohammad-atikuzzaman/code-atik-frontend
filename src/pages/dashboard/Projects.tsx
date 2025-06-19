@@ -7,7 +7,7 @@ import { fetchMySites } from "@/features/projects/projectSlice";
 const Projects = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { token } = useSelector((state: RootState) => state.auth);
-  const { sites, loading, error } = useSelector(
+  const { projects, loading, error } = useSelector(
     (state: RootState) => state.projects
   );
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -47,7 +47,7 @@ const Projects = () => {
           <p className="text-gray-300">Loading...</p>
         ) : error ? (
           <p className="text-red-400">Error: {error}</p>
-        ) : sites.length === 0 ? (
+        ) : projects.length === 0 ? (
           <div className="text-center py-16 bg-slate-800/50 rounded-xl border border-slate-700/50">
             <Folder className="mx-auto h-12 w-12 text-purple-400/50 mb-4" />
             <h3 className="text-xl font-medium text-gray-300">
@@ -59,32 +59,32 @@ const Projects = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sites.map((site) => (
+            {projects.map((project?) => (
               <div
-                key={site._id}
+                key={project?._id}
                 className="bg-slate-800/50 backdrop-blur-lg rounded-xl shadow-xl border border-slate-700/50 overflow-hidden hover:shadow-2xl transition-all"
               >
                 <div className="p-5">
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="text-lg font-semibold text-white truncate">
-                        {site.name || `Project ${site.folderId}`}
+                        {project?.name || `Project ${project?.folderId}`}
                       </h3>
                       <p className="text-sm text-gray-400 mt-1">
-                        ID: {site.folderId}
+                        ID: {project?.folderId}
                       </p>
                     </div>
                     <div className="relative">
                       <button
-                        onClick={() => toggleDropdown(site._id)}
+                        onClick={() => toggleDropdown(project?._id)}
                         className="text-gray-400 hover:text-white p-1 rounded-full hover:bg-slate-700/50"
                       >
                         <MoreVertical className="h-5 w-5" />
                       </button>
-                      {activeDropdown === site._id && (
+                      {activeDropdown === project?._id && (
                         <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg z-10 border border-slate-700">
                           <button
-                            onClick={() => handleDownload(site.folderId)}
+                            onClick={() => handleDownload(project?.folderId)}
                             className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-slate-700/50"
                           >
                             <Download className="h-4 w-4 mr-2" />
@@ -98,7 +98,7 @@ const Projects = () => {
                   <div className="mt-6 flex space-x-3">
                     <a
                       href={`${import.meta.env.VITE_API_URL}/preview/${
-                        site.folderId
+                        project?.folderId
                       }/index.html`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -108,7 +108,7 @@ const Projects = () => {
                       Preview
                     </a>
                     <button
-                      onClick={() => handleDownload(site.folderId)}
+                      onClick={() => handleDownload(project?.folderId)}
                       className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all"
                     >
                       <Download className="h-4 w-4 mr-2" />
@@ -118,7 +118,7 @@ const Projects = () => {
                 </div>
                 <div className="bg-slate-800/30 px-5 py-3 text-xs text-gray-500 border-t border-slate-700/50">
                   Created:{" "}
-                  {new Date(site.createdAt || Date.now()).toLocaleDateString()}
+                  {new Date(project?.createdAt || Date.now()).toLocaleDateString()}
                 </div>
               </div>
             ))}
