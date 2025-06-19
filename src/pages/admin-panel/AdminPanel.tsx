@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { AppDispatch, RootState } from "@/app/store";
+import Loading from "@/components/admin-panel/Loading";
+import { fetchStats } from "@/features/stats/statsSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BarChart,
   Bar,
@@ -14,34 +18,13 @@ import {
 } from "recharts";
 
 const AdminPanel = () => {
-  const [stats, setStats] = useState({
-    totalUsers: 0,
-    totalGeneratedSites: 0,
-  });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/stats`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch stats");
-        }
-        const data = await response.json();
-        setStats(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchStats();
-  }, []);
-
+  const dispatch = useDispatch<AppDispatch>();
+  const { stats, loading, error } = useSelector(
+    (state: RootState) => state.stats
+  );
+useEffect(()=>{
+  dispatch(fetchStats())
+},[])
   // Prepare chart data
   const barChartData = [
     {
@@ -59,13 +42,11 @@ const AdminPanel = () => {
     { name: "Generated Sites", value: stats?.totalGeneratedSites },
   ];
 
-  const COLORS = ["#6b46c1", "#d53f8c"]; // Purple and Pink
+  const COLORS = ["#6b46c1", "#d53f8c"]; 
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-      </div>
+     <Loading/>
     );
   }
 
