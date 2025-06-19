@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
+import Loading from "@/components/admin-panel/Loading";
+import { User } from "lucide-react";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -79,14 +81,18 @@ const Users = () => {
     }
   };
 
-  if (loading && users.length === 0) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (users.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br ">
-        <div className="max-w-7xl mx-auto bg-slate-800 bg-opacity-70 rounded-xl p-4 sm:p-6 backdrop-blur-sm">
-          <div className="animate-pulse text-center text-purple-200 text-sm sm:text-base">
-            Loading users...
-          </div>
-        </div>
+      <div className="text-center py-16 bg-slate-800/50 rounded-xl border border-slate-700/50">
+        <User className="mx-auto h-12 w-12 text-purple-400/50 mb-4" />
+        <h3 className="text-xl font-medium text-gray-300">No user yet</h3>
+        <p className="mt-2 text-gray-500">
+          Registered user of website will appear here
+        </p>
       </div>
     );
   }
