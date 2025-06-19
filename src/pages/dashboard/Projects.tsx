@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/app/store";
 import { Download, Folder, MoreVertical, ExternalLink } from "lucide-react";
 import { fetchMySites } from "@/features/projects/projectSlice";
+import Loading from "@/components/admin-panel/Loading";
 
 const Projects = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -44,7 +45,7 @@ const Projects = () => {
         </div>
 
         {loading ? (
-          <p className="text-gray-300">Loading...</p>
+          <Loading />
         ) : error ? (
           <p className="text-red-400">Error: {error}</p>
         ) : projects.length === 0 ? (
@@ -118,7 +119,9 @@ const Projects = () => {
                 </div>
                 <div className="bg-slate-800/30 px-5 py-3 text-xs text-gray-500 border-t border-slate-700/50">
                   Created:{" "}
-                  {new Date(project?.createdAt || Date.now()).toLocaleDateString()}
+                  {new Date(
+                    project?.createdAt || Date.now()
+                  ).toLocaleDateString()}
                 </div>
               </div>
             ))}
