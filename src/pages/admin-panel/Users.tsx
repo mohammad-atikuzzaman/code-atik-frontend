@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
 import Loading from "@/components/admin-panel/Loading";
 import { User } from "lucide-react";
+import { fetchUsers } from "@/features/users/userSlice";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { users, loading, error } = useSelector(
+    (state: RootState) => state.users
+  );
+  const dispatch = useDispatch<AppDispatch>();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const { token } = useSelector((state: RootState) => state.auth);
   const [selectedUser, setSelectedUser] = useState<{
@@ -17,31 +19,9 @@ const Users = () => {
   } | null>(null);
   const [newRole, setNewRole] = useState("");
 
-  // Fetch users
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/users`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setUsers(res.data);
-        setError(null);
-      } catch (err) {
-        setError("Failed to fetch users. Please try again.");
-        console.error("Error fetching users:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (token) {
-      fetchUsers();
-    }
-  }, [token]);
+    dispatch(fetchUsers(token));
+  }, [token, dispatch]);
 
   const handleRoleChange = (user: { email: string; role: string }) => {
     setSelectedUser({
