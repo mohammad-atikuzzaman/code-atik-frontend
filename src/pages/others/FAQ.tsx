@@ -127,7 +127,7 @@ const FAQ = () => {
                 </div>
               </div>
               <Link
-                to="/contact"
+                to="/#contacts"
                 className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 px-6 py-3 rounded-lg transition-all duration-300 border border-white/10 hover:border-white/20"
               >
                 <span>Contact Support</span>
