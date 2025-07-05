@@ -36,10 +36,10 @@ const Sites = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-            My Projects
+            Total Generated Sites
           </h1>
           <p className="text-gray-400">
-            Manage and preview your generated websites
+            Manage and preview generated websites
           </p>
         </div>
 
