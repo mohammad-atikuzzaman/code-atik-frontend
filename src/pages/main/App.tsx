@@ -40,6 +40,8 @@ import { CodeEditorWithGutter } from "@/components/studio/CodeEditorWithGutter";
 type ViewportMode = "desktop" | "tablet" | "mobile";
 type StudioTab = "preview" | "code" | "blueprint";
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:3000").replace(/\/$/, "");
+
 interface SiteBlueprint {
   category?: string;
   description?: string;
@@ -121,7 +123,7 @@ const App = () => {
   useEffect(() => {
     const fetchAllowedModels = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/models`);
+        const res = await axios.get(`${API_BASE_URL}/api/models`);
         if (res.data?.models && Array.isArray(res.data.models) && res.data.models.length > 0) {
           setAvailableModels(res.data.models);
           if (res.data.defaultModel) {
@@ -188,7 +190,7 @@ const App = () => {
 
     try {
       // Connect to real SSE Stream Endpoint
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/generate/stream`, {
+      const response = await fetch(`${API_BASE_URL}/api/generate/stream`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -265,18 +267,20 @@ const App = () => {
             } else if (eventName === "error") {
               throw new Error(parsed.error || "Generation error from server");
             }
-          } catch (e: any) {
-            console.warn("Error processing stream event:", e.message);
+          } catch (e) {
+            const err = e as Error;
+            console.warn("Error processing stream event:", err.message);
           }
         }
       }
-    } catch (streamError: any) {
-      console.warn("SSE stream interrupted or failed, attempting standard API fallback:", streamError.message);
+    } catch (streamError) {
+      const err = streamError as Error;
+      console.warn("SSE stream interrupted or failed, attempting standard API fallback:", err.message);
       setGenerationStage("Finalizing via direct agent fallback...");
 
       try {
         const res = await axios.post(
-          `${import.meta.env.VITE_API_URL}/api/generate`,
+          `${API_BASE_URL}/api/generate`,
           { prompt: prompt.trim(), model: selectedModel },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -298,10 +302,11 @@ const App = () => {
           title: "Website Created Successfully! 🚀",
           description: `Website created: ${res.data.title}`,
         });
-      } catch (fallbackError: any) {
+      } catch (fallbackError) {
+        const axiosErr = fallbackError as { response?: { data?: { error?: string } }; message?: string };
         toast({
           title: "Generation Failed",
-          description: fallbackError.response?.data?.error || fallbackError.message || "Failed to generate website",
+          description: axiosErr.response?.data?.error || axiosErr.message || "Failed to generate website",
           variant: "destructive",
         });
       }
@@ -325,7 +330,7 @@ const App = () => {
     setIsRefining(true);
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/refine`,
+        `${API_BASE_URL}/api/refine`,
         {
           projectId: siteData.id,
           prompt: refinePrompt.trim(),
@@ -351,11 +356,12 @@ const App = () => {
         title: `Revision #${res.data.revision || 2} Ready! ✨`,
         description: "Your changes have been incorporated.",
       });
-    } catch (error: any) {
-      console.error("Refinement error:", error);
+    } catch (error) {
+      const axiosErr = error as { response?: { data?: { error?: string } }; message?: string };
+      console.error("Refinement error:", axiosErr);
       toast({
         title: "Refinement Failed",
-        description: error.response?.data?.error || error.message || "Failed to refine website",
+        description: axiosErr.response?.data?.error || axiosErr.message || "Failed to refine website",
         variant: "destructive",
       });
     } finally {
@@ -393,7 +399,7 @@ const App = () => {
   const handleDownload = () => {
     if (!siteData?.id) return;
     const link = document.createElement("a");
-    link.href = `${import.meta.env.VITE_API_URL}/api/download/${siteData.id}`;
+    link.href = `${API_BASE_URL}/api/download/${siteData.id}`;
     link.setAttribute("download", `${(siteData.title || "generated-site").toLowerCase().replace(/\s+/g, "-")}.zip`);
     document.body.appendChild(link);
     link.click();
