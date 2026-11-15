@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {
@@ -71,17 +71,26 @@ interface GeneratedSite {
   revision?: number;
 }
 
-const OPENROUTER_MODELS = [
-  { id: "openrouter/free", name: "OpenRouter Free", badge: "Auto Free" },
-  { id: "deepseek/deepseek-chat", name: "DeepSeek V3", badge: "Smart" },
-  { id: "anthropic/claude-3.5-sonnet", name: "Claude 3.5 Sonnet", badge: "Pro" },
-  { id: "meta-llama/llama-3.3-70b-instruct", name: "Llama 3.3 70B", badge: "Open" },
+interface AIModelOption {
+  id: string;
+  name: string;
+  badge: string;
+  provider?: string;
+}
+
+const DEFAULT_ALLOWED_MODELS: AIModelOption[] = [
+  { id: "baidu/ernie-5.5-flash-preview:free", name: "ERNIE 5.5 Flash", badge: "Fast & Free", provider: "Baidu" },
+  { id: "inclusionai/ling-3.2-flash:free", name: "Ling 3.2 Flash", badge: "Free", provider: "InclusionAI" },
+  { id: "thinkingmachines/inkling-2-small:free", name: "Inkling 2 Small", badge: "Lightweight", provider: "ThinkingMachines" },
+  { id: "particle-ai/particle-1:free", name: "Particle 1", badge: "Agentic", provider: "Particle" },
+  { id: "nvidia/nemotron-3.5-super-vl:free", name: "Nemotron 3.5 Super VL", badge: "Vision / Logic", provider: "NVIDIA" },
 ];
 
 const App = () => {
   const [prompt, setPrompt] = useState("");
   const [refinePrompt, setRefinePrompt] = useState("");
-  const [selectedModel, setSelectedModel] = useState<string>("openrouter/free");
+  const [availableModels, setAvailableModels] = useState<AIModelOption[]>(DEFAULT_ALLOWED_MODELS);
+  const [selectedModel, setSelectedModel] = useState<string>("baidu/ernie-5.5-flash-preview:free");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isRefining, setIsRefining] = useState(false);
   const [activeTab, setActiveTab] = useState<StudioTab>("preview");
@@ -107,6 +116,24 @@ const App = () => {
 
   const { toast } = useToast();
   const { token } = useSelector((state: RootState) => state.auth);
+
+  // Dynamically synchronize allowed OpenRouter models with backend whitelist
+  useEffect(() => {
+    const fetchAllowedModels = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/models`);
+        if (res.data?.models && Array.isArray(res.data.models) && res.data.models.length > 0) {
+          setAvailableModels(res.data.models);
+          if (res.data.defaultModel) {
+            setSelectedModel(res.data.defaultModel);
+          }
+        }
+      } catch {
+        // Fallback gracefully to DEFAULT_ALLOWED_MODELS
+      }
+    };
+    fetchAllowedModels();
+  }, []);
 
   // Construct iframe srcDoc for instant 0ms preview rendering without network roundtrips
   const iframeSrcDoc = useMemo(() => {
@@ -595,7 +622,7 @@ const App = () => {
                       disabled={isGenerating}
                       className="bg-slate-900 border border-slate-700/80 text-purple-300 text-xs rounded-md px-2.5 py-1 outline-none focus:border-purple-500 font-mono cursor-pointer"
                     >
-                      {OPENROUTER_MODELS.map((m) => (
+                      {availableModels.map((m) => (
                         <option key={m.id} value={m.id}>
                           {m.name} ({m.badge})
                         </option>
@@ -662,6 +689,26 @@ const App = () => {
                         {siteData.blueprint.category}
                       </span>
                     )}
+                  </div>
+
+                  {/* Model Selector for Refinement */}
+                  <div className="flex items-center justify-between mb-2 bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                    <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                      <Cpu className="w-3.5 h-3.5 text-purple-400" />
+                      <span>Model:</span>
+                    </label>
+                    <select
+                      value={selectedModel}
+                      onChange={(e) => setSelectedModel(e.target.value)}
+                      disabled={isRefining}
+                      className="bg-slate-900 border border-slate-700/80 text-purple-300 text-xs rounded-md px-2 py-1 outline-none focus:border-purple-500 font-mono cursor-pointer"
+                    >
+                      {availableModels.map((m) => (
+                        <option key={m.id} value={m.id}>
+                          {m.name} ({m.badge})
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div>
