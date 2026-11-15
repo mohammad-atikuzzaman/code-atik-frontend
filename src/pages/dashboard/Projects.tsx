@@ -23,10 +23,10 @@ const Projects = () => {
     setActiveDropdown(activeDropdown === id ? null : id);
   };
 
-  const handleDownload = (folderId: string) => {
+  const handleDownload = (projectId: string, title?: string) => {
     const link = document.createElement("a");
-    link.href = `${import.meta.env.VITE_API_URL}/api/download/${folderId}`;
-    link.setAttribute("download", "generated-site.zip");
+    link.href = `${import.meta.env.VITE_API_URL}/api/download/${projectId}`;
+    link.setAttribute("download", `${(title || "generated-site").toLowerCase().replace(/\s+/g, "-")}.zip`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -40,7 +40,7 @@ const Projects = () => {
             My Projects
           </h1>
           <p className="text-gray-400">
-            Manage and preview your generated websites
+            Manage, preview, and download your generated websites
           </p>
         </div>
 
@@ -55,76 +55,84 @@ const Projects = () => {
               No projects yet
             </h3>
             <p className="mt-2 text-gray-500">
-              Generate your first website to see it appear here
+              Generate your first website in the studio to see it appear here
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project?) => (
-              <div
-                key={project?._id}
-                className="bg-slate-800/50 backdrop-blur-lg rounded-xl shadow-xl border border-slate-700/50 overflow-hidden hover:shadow-2xl transition-all"
-              >
-                <div className="p-5">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-semibold text-white truncate">
-                        {project?.name || `Project ${project?.folderId}`}
-                      </h3>
-                      <p className="text-sm text-gray-400 mt-1">
-                        ID: {project?.folderId}
-                      </p>
-                    </div>
-                    <div className="relative">
-                      <button
-                        onClick={() => toggleDropdown(project?._id)}
-                        className="text-gray-400 hover:text-white p-1 rounded-full hover:bg-slate-700/50"
-                      >
-                        <MoreVertical className="h-5 w-5" />
-                      </button>
-                      {activeDropdown === project?._id && (
-                        <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg z-10 border border-slate-700">
-                          <button
-                            onClick={() => handleDownload(project?.folderId)}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-slate-700/50"
-                          >
-                            <Download className="h-4 w-4 mr-2" />
-                            Download
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+            {projects.map((project: any) => {
+              const projectId = project?._id || project?.folderId;
+              const projectTitle = project?.title || project?.name || (project?.prompt ? project.prompt.slice(0, 30) + "..." : `Project ${projectId}`);
 
-                  <div className="mt-6 flex space-x-3">
-                    <a
-                      href={`${import.meta.env.VITE_API_URL}/preview/${
-                        project?.folderId
-                      }/index.html`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-purple-500 rounded-lg text-sm font-medium text-purple-300 hover:bg-purple-900/30 hover:text-white transition-colors"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Preview
-                    </a>
-                    <button
-                      onClick={() => handleDownload(project?.folderId)}
-                      className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all"
-                    >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                    </button>
+              return (
+                <div
+                  key={project?._id || projectId}
+                  className="bg-slate-800/50 backdrop-blur-lg rounded-xl shadow-xl border border-slate-700/50 overflow-hidden hover:shadow-2xl transition-all flex flex-col justify-between"
+                >
+                  <div className="p-5">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1 mr-2">
+                        <h3 className="text-lg font-semibold text-white truncate" title={projectTitle}>
+                          {projectTitle}
+                        </h3>
+                        {project?.prompt && (
+                          <p className="text-xs text-gray-400 mt-1 line-clamp-2">
+                            {project.prompt}
+                          </p>
+                        )}
+                        <p className="text-[11px] text-gray-500 mt-1 font-mono">
+                          ID: {projectId}
+                        </p>
+                      </div>
+                      <div className="relative">
+                        <button
+                          onClick={() => toggleDropdown(project?._id)}
+                          className="text-gray-400 hover:text-white p-1 rounded-full hover:bg-slate-700/50"
+                        >
+                          <MoreVertical className="h-5 w-5" />
+                        </button>
+                        {activeDropdown === project?._id && (
+                          <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg z-10 border border-slate-700">
+                            <button
+                              onClick={() => handleDownload(projectId, projectTitle)}
+                              className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-slate-700/50"
+                            >
+                              <Download className="h-4 w-4 mr-2" />
+                              Download ZIP
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-6 flex space-x-3">
+                      <a
+                        href={`${import.meta.env.VITE_API_URL}/preview/${projectId}/index.html`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-purple-500 rounded-lg text-sm font-medium text-purple-300 hover:bg-purple-900/30 hover:text-white transition-colors"
+                      >
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Live Preview
+                      </a>
+                      <button
+                        onClick={() => handleDownload(projectId, projectTitle)}
+                        className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-slate-800/30 px-5 py-3 text-xs text-gray-500 border-t border-slate-700/50">
+                    Created:{" "}
+                    {new Date(
+                      project?.createdAt || Date.now()
+                    ).toLocaleDateString()}
                   </div>
                 </div>
-                <div className="bg-slate-800/30 px-5 py-3 text-xs text-gray-500 border-t border-slate-700/50">
-                  Created:{" "}
-                  {new Date(
-                    project?.createdAt || Date.now()
-                  ).toLocaleDateString()}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

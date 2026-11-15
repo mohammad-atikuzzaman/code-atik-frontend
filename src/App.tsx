@@ -6,22 +6,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Index from "./pages/main/Index";
 import App from "./pages/main/App";
+import PublicSiteViewer from "./pages/main/PublicSiteViewer";
 import NotFound from "./pages/others/NotFound";
 import OAuthSuccess from "./pages/auth/OAuthSuccess";
 import Unauthorized from "./pages/others/Unauthorized";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import UserDashboard from "./layoutes/UserDashboard";
+import UserDashboard from "./layouts/UserDashboard";
 import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import Profile from "./pages/dashboard/Profile";
 import TermsOfService from "./pages/others/TermsOfService";
 import PrivacyPolicy from "./pages/others/PrivacyPolicy";
 import Projects from "./pages/dashboard/Projects";
-import AdminDashboard from "./layoutes/AdminDashboard";
+import AdminDashboard from "./layouts/AdminDashboard";
 import Users from "./pages/admin-panel/Users";
 import AdminPanel from "./pages/admin-panel/AdminPanel";
 import Sites from "./pages/admin-panel/Sites";
-import CookiePolicy from "./pages/others/CookiePlicy";
+import CookiePolicy from "./pages/others/CookiePolicy";
 import FAQ from "./pages/others/FAQ";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,9 @@ const AppComponent = () => (
               </ProtectedRoute>
             }
           />
+
+          {/* Public Shareable Website Route */}
+          <Route path="/p/:id" element={<PublicSiteViewer />} />
 
           {/* auth interface of website */}
           <Route path="/register" element={<Register />} />
