@@ -43,6 +43,7 @@ type StudioTab = "preview" | "code" | "blueprint";
 const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:3000").replace(/\/$/, "");
 
 interface SiteBlueprint {
+  title?: string;
   category?: string;
   description?: string;
   targetAudience?: string;
