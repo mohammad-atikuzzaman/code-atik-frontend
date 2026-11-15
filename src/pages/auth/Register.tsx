@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { Lock, Mail, User, ArrowRight } from "lucide-react";
+import { Lock, Mail, User, ArrowRight, BadgeCheck } from "lucide-react";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -47,6 +47,11 @@ const Register = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const googleLogin = () => {
+    const apiUrl = (import.meta.env.VITE_API_URL || "http://localhost:3000").replace(/\/$/, "");
+    window.location.href = `${apiUrl}/api/auth/google`;
   };
 
   return (
@@ -176,6 +181,31 @@ const Register = () => {
               </button>
             </div>
           </form>
+
+          {/* Social Login */}
+          <div className="mt-8">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-700"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-slate-800/50 text-gray-400">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-3">
+              <button
+                type="button"
+                onClick={googleLogin}
+                className="w-full flex items-center justify-center px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg font-medium text-white transition-all duration-300"
+              >
+                <BadgeCheck className="mr-2" />
+                <span>Google</span>
+              </button>
+            </div>
+          </div>
 
           {/* Login Link */}
           <div className="mt-8 text-center text-sm text-gray-400">
