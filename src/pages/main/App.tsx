@@ -71,9 +71,17 @@ interface GeneratedSite {
   revision?: number;
 }
 
+const OPENROUTER_MODELS = [
+  { id: "openrouter/free", name: "OpenRouter Free", badge: "Auto Free" },
+  { id: "deepseek/deepseek-chat", name: "DeepSeek V3", badge: "Smart" },
+  { id: "anthropic/claude-3.5-sonnet", name: "Claude 3.5 Sonnet", badge: "Pro" },
+  { id: "meta-llama/llama-3.3-70b-instruct", name: "Llama 3.3 70B", badge: "Open" },
+];
+
 const App = () => {
   const [prompt, setPrompt] = useState("");
   const [refinePrompt, setRefinePrompt] = useState("");
+  const [selectedModel, setSelectedModel] = useState<string>("openrouter/free");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isRefining, setIsRefining] = useState(false);
   const [activeTab, setActiveTab] = useState<StudioTab>("preview");
@@ -159,7 +167,7 @@ const App = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ prompt: prompt.trim() }),
+        body: JSON.stringify({ prompt: prompt.trim(), model: selectedModel }),
       });
 
       if (!response.ok) {
@@ -242,7 +250,7 @@ const App = () => {
       try {
         const res = await axios.post(
           `${import.meta.env.VITE_API_URL}/api/generate`,
-          { prompt: prompt.trim() },
+          { prompt: prompt.trim(), model: selectedModel },
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -294,6 +302,7 @@ const App = () => {
         {
           projectId: siteData.id,
           prompt: refinePrompt.trim(),
+          model: selectedModel,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -573,6 +582,26 @@ const App = () => {
                   <p className="text-xs text-slate-400 mb-3">
                     Describe your website idea. The harness will deploy an <strong>Architect Agent</strong> to formulate a UX blueprint, a <strong>Lead Engineer</strong> to synthesize code, and a <strong>QA Agent</strong> to polish the result.
                   </p>
+
+                  {/* OpenRouter Model Selector */}
+                  <div className="flex items-center justify-between mb-2.5 bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                    <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                      <Cpu className="w-3.5 h-3.5 text-purple-400" />
+                      <span>Model:</span>
+                    </label>
+                    <select
+                      value={selectedModel}
+                      onChange={(e) => setSelectedModel(e.target.value)}
+                      disabled={isGenerating}
+                      className="bg-slate-900 border border-slate-700/80 text-purple-300 text-xs rounded-md px-2.5 py-1 outline-none focus:border-purple-500 font-mono cursor-pointer"
+                    >
+                      {OPENROUTER_MODELS.map((m) => (
+                        <option key={m.id} value={m.id}>
+                          {m.name} ({m.badge})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
                   <Textarea
                     placeholder="e.g. A high-converting SaaS landing page for an AI video editor with glassmorphism, bento grid features, pricing tiers, and an interactive FAQ..."
